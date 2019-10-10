@@ -1,0 +1,86 @@
+syntax="proto3";
+
+service ChessApplication {
+    rpc GameStream(GameRequestMessage) returns (stream ServerGameMessage) {}
+    rpc GameAction(stream ClientGameMessage) returns (stream GameMessageResponse) {}
+    rpc MainChatRoom(RoomRequest) returns (stream RoomMessage) {}
+    rpc GameRequest(GameControls) returns (stream GameProposals) {}
+    rpc GameConfirmation(GameRequestMessage) returns (Confimation) {}
+}
+
+message Person {
+    string id = 1;
+    string name = 2;
+    int32 rating = 3;
+}
+
+message RatingFilter {}
+
+message GameProposals {
+    TimeControl timeControl = 1;
+    Person opponent = 2;
+}
+
+message GameControls {
+    TimeControl timeControl = 1;
+    RatingFilter ratingFilter = 2;
+}
+
+message Confimation{
+    string confimationCode = 1;
+}
+
+message RoomRequest {}
+
+message RoomMessage {
+    string msg = 1;
+}
+
+message GameRequestMessage {
+    string id = 1;
+}
+
+message GameMessageResponse{
+    enum GameMessageResponseTypes {
+        OK = 0;
+        ILLEGAL_MOVE = 1;
+    }
+
+    GameMessageResponseTypes type = 1;
+}
+
+message ClientGameMessage {
+    enum MessageType {
+        UCI = 0;
+        GAME_STATE_REQUEST = 1;
+    }
+
+    MessageType messageType = 1;   
+    string uciMessage = 2;
+}
+
+message GameState {
+    string fen = 1;
+    TimeControl timeControl = 2;
+    TimeState timeState = 3;
+}
+
+message TimeControl {
+    int32 time = 1;
+    int32 incremet = 2;
+}
+
+message TimeState {
+    int32 whiteTimeRemaining = 1;
+    int32 blackTimeRemaining = 2;
+}
+
+message ServerGameMessage {
+    enum MessageType {
+        UCI = 0;
+        GAME_STATE_RESPONSE = 1;
+    }
+
+    MessageType messageType = 1;   
+    string uciMessage = 2;
+}

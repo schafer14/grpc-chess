@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"flag"
 
 	log "github.com/sirupsen/logrus"
@@ -27,37 +26,4 @@ func main() {
 	client := newChessClient(*clientLogger, c)
 
 	client.newGameRequest()
-}
-
-type chessClient struct {
-	l log.Entry
-	c pb.ChessApplicationClient
-}
-
-func newChessClient(l log.Entry, client pb.ChessApplicationClient) chessClient {
-	return chessClient{l: l, c: client}
-}
-
-func (c chessClient) newGameRequest() {
-	requestLogger := c.l.WithField("request", "newGameRequest")
-	requestLogger.Info("Requesting a new game")
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	stream, err := c.c.GameRequest(ctx, &pb.GameControls{})
-	if err != nil {
-		cancel()
-		requestLogger.Errorln("Could not create game request", err)
-		return
-	}
-
-	prop, err := stream.Recv()
-	if err != nil {
-		cancel()
-		requestLogger.Errorln("Could not read message", err)
-		return
-	}
-
-	requestLogger.WithField("proposal", prop).Info("Got a game request")
 }

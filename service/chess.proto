@@ -1,11 +1,125 @@
 syntax="proto3";
 
 service ChessApplication {
-    rpc GameStream(GameRequestMessage) returns (stream ServerGameMessage) {}
-    rpc GameAction(stream ClientGameMessage) returns (stream GameMessageResponse) {}
-    rpc MainChatRoom(RoomRequest) returns (stream RoomMessage) {}
-    rpc GameRequest(GameControls) returns (stream GameProposals) {}
-    rpc GameConfirmation(GameRequestMessage) returns (Confimation) {}
+    // Lates!
+    // rpc GameStream(GameRequestMessage) returns (stream ServerGameMessage) {}
+    // rpc GameAction(stream ClientGameMessage) returns (stream GameMessageResponse) {}
+    // rpc MainChatRoom(RoomRequest) returns (stream RoomMessage) {}
+    // rpc GameRequest(GameControls) returns (stream GameProposals) {}
+    // rpc GameConfirmation(GameRequestMessage) returns (Confimation) {}
+
+
+    rpc UCI(stream UciRequest) returns (stream UciResponse) {}
+}
+
+
+
+message UciRequest {
+    enum MessageType {
+        ID = 0;
+        OPTION = 1;
+        UCIOK = 2;
+        READYOK = 3;
+        BESTMOVE = 4;
+        COPYPROTECTION = 5;
+        REGISTRATION = 6;
+        INFO = 7;
+    }
+
+    message Option {
+        string name = 1;
+        string type = 2;
+        string default = 3;
+        int32 min = 4;
+        int32 max = 5;
+        string var = 6;
+    }
+
+    message Id {
+        string name = 1;
+        string author = 2;
+    }
+
+    message BestMove {
+        repeated string ponder = 1;
+    }
+
+    message Score {
+        int32 cp = 1;
+        int32 mate = 2;
+        int32 lower = 3;
+        int32 upper = 4;
+    }
+
+    message Info {
+        uint32 depth = 1;
+        uint32 seldepth = 2;
+        uint32 time = 3;
+        uint32 nodes = 4;
+        int32 pv = 5;
+        int32 multipv = 6;
+        Score score = 7;
+        string currmove = 8;
+        uint32 currmovenumber = 9;
+        uint32 hashfull = 10;
+        uint32 nps = 11;
+        uint32 tbhits = 12;
+        uint32 cpuload = 13;
+        string string = 14;
+        repeated string refutation = 15;
+        string currline  = 16;
+    }
+
+    MessageType messageType = 1;
+    Id id = 2;
+    BestMove bestMove = 3;
+    Info info = 4;
+    Option option = 5;
+}
+
+message UciResponse {
+    enum MessageType {
+        UCI = 0;
+        DEBUG = 1;
+        ISREADY = 2;
+        SETOPTION = 3;
+        REGISTER = 4;
+        UCINEWGAME = 5;
+        POSITION = 6;
+        GO = 7;
+        STOP = 8;
+        PONDERHIT = 9;
+        QUIT = 10;
+    }
+
+    message SetOption {
+        string name = 1;
+        string value = 2;
+    }
+
+    message Position {
+        bool isFen = 1;
+        repeated string moves = 2;
+    }
+
+    message Go {
+        repeated string searchmoves = 1;
+        bool isPonder = 2;
+        uint32 wtime = 3;
+        uint32 btime = 4;
+        uint32 winc = 5;
+        uint32 binc = 6;
+        uint32 movestogo = 7;
+        uint32 depth = 8;
+        uint32 nodes = 9;
+        uint32 movetime = 10;
+        bool isInfinite = 11;
+    }
+
+    MessageType messageType = 1;
+    bool debug = 2;
+    SetOption setOption = 3;
+    Position position = 4;
 }
 
 message Person {

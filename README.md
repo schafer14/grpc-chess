@@ -41,3 +41,7 @@
 - Either player may not be a human
   - But each agent should know the agent type of their opponent
   
+## First Step
+
+- Facilitate engine vs engine game:w
+- 

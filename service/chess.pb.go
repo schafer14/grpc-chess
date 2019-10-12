@@ -24,6 +24,101 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type UciRequest_MessageType int32
+
+const (
+	UciRequest_ID             UciRequest_MessageType = 0
+	UciRequest_OPTION         UciRequest_MessageType = 1
+	UciRequest_UCIOK          UciRequest_MessageType = 2
+	UciRequest_READYOK        UciRequest_MessageType = 3
+	UciRequest_BESTMOVE       UciRequest_MessageType = 4
+	UciRequest_COPYPROTECTION UciRequest_MessageType = 5
+	UciRequest_REGISTRATION   UciRequest_MessageType = 6
+	UciRequest_INFO           UciRequest_MessageType = 7
+)
+
+var UciRequest_MessageType_name = map[int32]string{
+	0: "ID",
+	1: "OPTION",
+	2: "UCIOK",
+	3: "READYOK",
+	4: "BESTMOVE",
+	5: "COPYPROTECTION",
+	6: "REGISTRATION",
+	7: "INFO",
+}
+
+var UciRequest_MessageType_value = map[string]int32{
+	"ID":             0,
+	"OPTION":         1,
+	"UCIOK":          2,
+	"READYOK":        3,
+	"BESTMOVE":       4,
+	"COPYPROTECTION": 5,
+	"REGISTRATION":   6,
+	"INFO":           7,
+}
+
+func (x UciRequest_MessageType) String() string {
+	return proto.EnumName(UciRequest_MessageType_name, int32(x))
+}
+
+func (UciRequest_MessageType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0, 0}
+}
+
+type UciResponse_MessageType int32
+
+const (
+	UciResponse_UCI        UciResponse_MessageType = 0
+	UciResponse_DEBUG      UciResponse_MessageType = 1
+	UciResponse_ISREADY    UciResponse_MessageType = 2
+	UciResponse_SETOPTION  UciResponse_MessageType = 3
+	UciResponse_REGISTER   UciResponse_MessageType = 4
+	UciResponse_UCINEWGAME UciResponse_MessageType = 5
+	UciResponse_POSITION   UciResponse_MessageType = 6
+	UciResponse_GO         UciResponse_MessageType = 7
+	UciResponse_STOP       UciResponse_MessageType = 8
+	UciResponse_PONDERHIT  UciResponse_MessageType = 9
+	UciResponse_QUIT       UciResponse_MessageType = 10
+)
+
+var UciResponse_MessageType_name = map[int32]string{
+	0:  "UCI",
+	1:  "DEBUG",
+	2:  "ISREADY",
+	3:  "SETOPTION",
+	4:  "REGISTER",
+	5:  "UCINEWGAME",
+	6:  "POSITION",
+	7:  "GO",
+	8:  "STOP",
+	9:  "PONDERHIT",
+	10: "QUIT",
+}
+
+var UciResponse_MessageType_value = map[string]int32{
+	"UCI":        0,
+	"DEBUG":      1,
+	"ISREADY":    2,
+	"SETOPTION":  3,
+	"REGISTER":   4,
+	"UCINEWGAME": 5,
+	"POSITION":   6,
+	"GO":         7,
+	"STOP":       8,
+	"PONDERHIT":  9,
+	"QUIT":       10,
+}
+
+func (x UciResponse_MessageType) String() string {
+	return proto.EnumName(UciResponse_MessageType_name, int32(x))
+}
+
+func (UciResponse_MessageType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{1, 0}
+}
+
 type GameMessageResponse_GameMessageResponseTypes int32
 
 const (
@@ -46,7 +141,7 @@ func (x GameMessageResponse_GameMessageResponseTypes) String() string {
 }
 
 func (GameMessageResponse_GameMessageResponseTypes) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{8, 0}
+	return fileDescriptor_cdc17040449aa6b8, []int{10, 0}
 }
 
 type ClientGameMessage_MessageType int32
@@ -71,7 +166,7 @@ func (x ClientGameMessage_MessageType) String() string {
 }
 
 func (ClientGameMessage_MessageType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{9, 0}
+	return fileDescriptor_cdc17040449aa6b8, []int{11, 0}
 }
 
 type ServerGameMessage_MessageType int32
@@ -96,7 +191,741 @@ func (x ServerGameMessage_MessageType) String() string {
 }
 
 func (ServerGameMessage_MessageType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{13, 0}
+	return fileDescriptor_cdc17040449aa6b8, []int{15, 0}
+}
+
+type UciRequest struct {
+	MessageType          UciRequest_MessageType `protobuf:"varint,1,opt,name=messageType,proto3,enum=UciRequest_MessageType" json:"messageType,omitempty"`
+	Id                   *UciRequest_Id         `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	BestMove             *UciRequest_BestMove   `protobuf:"bytes,3,opt,name=bestMove,proto3" json:"bestMove,omitempty"`
+	Info                 *UciRequest_Info       `protobuf:"bytes,4,opt,name=info,proto3" json:"info,omitempty"`
+	Option               *UciRequest_Option     `protobuf:"bytes,5,opt,name=option,proto3" json:"option,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
+	XXX_unrecognized     []byte                 `json:"-"`
+	XXX_sizecache        int32                  `json:"-"`
+}
+
+func (m *UciRequest) Reset()         { *m = UciRequest{} }
+func (m *UciRequest) String() string { return proto.CompactTextString(m) }
+func (*UciRequest) ProtoMessage()    {}
+func (*UciRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0}
+}
+
+func (m *UciRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciRequest.Unmarshal(m, b)
+}
+func (m *UciRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciRequest.Marshal(b, m, deterministic)
+}
+func (m *UciRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciRequest.Merge(m, src)
+}
+func (m *UciRequest) XXX_Size() int {
+	return xxx_messageInfo_UciRequest.Size(m)
+}
+func (m *UciRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciRequest proto.InternalMessageInfo
+
+func (m *UciRequest) GetMessageType() UciRequest_MessageType {
+	if m != nil {
+		return m.MessageType
+	}
+	return UciRequest_ID
+}
+
+func (m *UciRequest) GetId() *UciRequest_Id {
+	if m != nil {
+		return m.Id
+	}
+	return nil
+}
+
+func (m *UciRequest) GetBestMove() *UciRequest_BestMove {
+	if m != nil {
+		return m.BestMove
+	}
+	return nil
+}
+
+func (m *UciRequest) GetInfo() *UciRequest_Info {
+	if m != nil {
+		return m.Info
+	}
+	return nil
+}
+
+func (m *UciRequest) GetOption() *UciRequest_Option {
+	if m != nil {
+		return m.Option
+	}
+	return nil
+}
+
+type UciRequest_Option struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type                 string   `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	Default              string   `protobuf:"bytes,3,opt,name=default,proto3" json:"default,omitempty"`
+	Min                  int32    `protobuf:"varint,4,opt,name=min,proto3" json:"min,omitempty"`
+	Max                  int32    `protobuf:"varint,5,opt,name=max,proto3" json:"max,omitempty"`
+	Var                  string   `protobuf:"bytes,6,opt,name=var,proto3" json:"var,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciRequest_Option) Reset()         { *m = UciRequest_Option{} }
+func (m *UciRequest_Option) String() string { return proto.CompactTextString(m) }
+func (*UciRequest_Option) ProtoMessage()    {}
+func (*UciRequest_Option) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0, 0}
+}
+
+func (m *UciRequest_Option) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciRequest_Option.Unmarshal(m, b)
+}
+func (m *UciRequest_Option) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciRequest_Option.Marshal(b, m, deterministic)
+}
+func (m *UciRequest_Option) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciRequest_Option.Merge(m, src)
+}
+func (m *UciRequest_Option) XXX_Size() int {
+	return xxx_messageInfo_UciRequest_Option.Size(m)
+}
+func (m *UciRequest_Option) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciRequest_Option.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciRequest_Option proto.InternalMessageInfo
+
+func (m *UciRequest_Option) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *UciRequest_Option) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *UciRequest_Option) GetDefault() string {
+	if m != nil {
+		return m.Default
+	}
+	return ""
+}
+
+func (m *UciRequest_Option) GetMin() int32 {
+	if m != nil {
+		return m.Min
+	}
+	return 0
+}
+
+func (m *UciRequest_Option) GetMax() int32 {
+	if m != nil {
+		return m.Max
+	}
+	return 0
+}
+
+func (m *UciRequest_Option) GetVar() string {
+	if m != nil {
+		return m.Var
+	}
+	return ""
+}
+
+type UciRequest_Id struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Author               string   `protobuf:"bytes,2,opt,name=author,proto3" json:"author,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciRequest_Id) Reset()         { *m = UciRequest_Id{} }
+func (m *UciRequest_Id) String() string { return proto.CompactTextString(m) }
+func (*UciRequest_Id) ProtoMessage()    {}
+func (*UciRequest_Id) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0, 1}
+}
+
+func (m *UciRequest_Id) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciRequest_Id.Unmarshal(m, b)
+}
+func (m *UciRequest_Id) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciRequest_Id.Marshal(b, m, deterministic)
+}
+func (m *UciRequest_Id) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciRequest_Id.Merge(m, src)
+}
+func (m *UciRequest_Id) XXX_Size() int {
+	return xxx_messageInfo_UciRequest_Id.Size(m)
+}
+func (m *UciRequest_Id) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciRequest_Id.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciRequest_Id proto.InternalMessageInfo
+
+func (m *UciRequest_Id) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *UciRequest_Id) GetAuthor() string {
+	if m != nil {
+		return m.Author
+	}
+	return ""
+}
+
+type UciRequest_BestMove struct {
+	Ponder               []string `protobuf:"bytes,1,rep,name=ponder,proto3" json:"ponder,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciRequest_BestMove) Reset()         { *m = UciRequest_BestMove{} }
+func (m *UciRequest_BestMove) String() string { return proto.CompactTextString(m) }
+func (*UciRequest_BestMove) ProtoMessage()    {}
+func (*UciRequest_BestMove) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0, 2}
+}
+
+func (m *UciRequest_BestMove) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciRequest_BestMove.Unmarshal(m, b)
+}
+func (m *UciRequest_BestMove) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciRequest_BestMove.Marshal(b, m, deterministic)
+}
+func (m *UciRequest_BestMove) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciRequest_BestMove.Merge(m, src)
+}
+func (m *UciRequest_BestMove) XXX_Size() int {
+	return xxx_messageInfo_UciRequest_BestMove.Size(m)
+}
+func (m *UciRequest_BestMove) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciRequest_BestMove.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciRequest_BestMove proto.InternalMessageInfo
+
+func (m *UciRequest_BestMove) GetPonder() []string {
+	if m != nil {
+		return m.Ponder
+	}
+	return nil
+}
+
+type UciRequest_Score struct {
+	Cp                   int32    `protobuf:"varint,1,opt,name=cp,proto3" json:"cp,omitempty"`
+	Mate                 int32    `protobuf:"varint,2,opt,name=mate,proto3" json:"mate,omitempty"`
+	Lower                int32    `protobuf:"varint,3,opt,name=lower,proto3" json:"lower,omitempty"`
+	Upper                int32    `protobuf:"varint,4,opt,name=upper,proto3" json:"upper,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciRequest_Score) Reset()         { *m = UciRequest_Score{} }
+func (m *UciRequest_Score) String() string { return proto.CompactTextString(m) }
+func (*UciRequest_Score) ProtoMessage()    {}
+func (*UciRequest_Score) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0, 3}
+}
+
+func (m *UciRequest_Score) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciRequest_Score.Unmarshal(m, b)
+}
+func (m *UciRequest_Score) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciRequest_Score.Marshal(b, m, deterministic)
+}
+func (m *UciRequest_Score) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciRequest_Score.Merge(m, src)
+}
+func (m *UciRequest_Score) XXX_Size() int {
+	return xxx_messageInfo_UciRequest_Score.Size(m)
+}
+func (m *UciRequest_Score) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciRequest_Score.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciRequest_Score proto.InternalMessageInfo
+
+func (m *UciRequest_Score) GetCp() int32 {
+	if m != nil {
+		return m.Cp
+	}
+	return 0
+}
+
+func (m *UciRequest_Score) GetMate() int32 {
+	if m != nil {
+		return m.Mate
+	}
+	return 0
+}
+
+func (m *UciRequest_Score) GetLower() int32 {
+	if m != nil {
+		return m.Lower
+	}
+	return 0
+}
+
+func (m *UciRequest_Score) GetUpper() int32 {
+	if m != nil {
+		return m.Upper
+	}
+	return 0
+}
+
+type UciRequest_Info struct {
+	Depth                uint32            `protobuf:"varint,1,opt,name=depth,proto3" json:"depth,omitempty"`
+	Seldepth             uint32            `protobuf:"varint,2,opt,name=seldepth,proto3" json:"seldepth,omitempty"`
+	Time                 uint32            `protobuf:"varint,3,opt,name=time,proto3" json:"time,omitempty"`
+	Nodes                uint32            `protobuf:"varint,4,opt,name=nodes,proto3" json:"nodes,omitempty"`
+	Pv                   int32             `protobuf:"varint,5,opt,name=pv,proto3" json:"pv,omitempty"`
+	Multipv              int32             `protobuf:"varint,6,opt,name=multipv,proto3" json:"multipv,omitempty"`
+	Score                *UciRequest_Score `protobuf:"bytes,7,opt,name=score,proto3" json:"score,omitempty"`
+	Currmove             string            `protobuf:"bytes,8,opt,name=currmove,proto3" json:"currmove,omitempty"`
+	Currmovenumber       uint32            `protobuf:"varint,9,opt,name=currmovenumber,proto3" json:"currmovenumber,omitempty"`
+	Hashfull             uint32            `protobuf:"varint,10,opt,name=hashfull,proto3" json:"hashfull,omitempty"`
+	Nps                  uint32            `protobuf:"varint,11,opt,name=nps,proto3" json:"nps,omitempty"`
+	Tbhits               uint32            `protobuf:"varint,12,opt,name=tbhits,proto3" json:"tbhits,omitempty"`
+	Cpuload              uint32            `protobuf:"varint,13,opt,name=cpuload,proto3" json:"cpuload,omitempty"`
+	String_              string            `protobuf:"bytes,14,opt,name=string,proto3" json:"string,omitempty"`
+	Refutation           []string          `protobuf:"bytes,15,rep,name=refutation,proto3" json:"refutation,omitempty"`
+	Currline             string            `protobuf:"bytes,16,opt,name=currline,proto3" json:"currline,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *UciRequest_Info) Reset()         { *m = UciRequest_Info{} }
+func (m *UciRequest_Info) String() string { return proto.CompactTextString(m) }
+func (*UciRequest_Info) ProtoMessage()    {}
+func (*UciRequest_Info) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{0, 4}
+}
+
+func (m *UciRequest_Info) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciRequest_Info.Unmarshal(m, b)
+}
+func (m *UciRequest_Info) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciRequest_Info.Marshal(b, m, deterministic)
+}
+func (m *UciRequest_Info) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciRequest_Info.Merge(m, src)
+}
+func (m *UciRequest_Info) XXX_Size() int {
+	return xxx_messageInfo_UciRequest_Info.Size(m)
+}
+func (m *UciRequest_Info) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciRequest_Info.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciRequest_Info proto.InternalMessageInfo
+
+func (m *UciRequest_Info) GetDepth() uint32 {
+	if m != nil {
+		return m.Depth
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetSeldepth() uint32 {
+	if m != nil {
+		return m.Seldepth
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetTime() uint32 {
+	if m != nil {
+		return m.Time
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetNodes() uint32 {
+	if m != nil {
+		return m.Nodes
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetPv() int32 {
+	if m != nil {
+		return m.Pv
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetMultipv() int32 {
+	if m != nil {
+		return m.Multipv
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetScore() *UciRequest_Score {
+	if m != nil {
+		return m.Score
+	}
+	return nil
+}
+
+func (m *UciRequest_Info) GetCurrmove() string {
+	if m != nil {
+		return m.Currmove
+	}
+	return ""
+}
+
+func (m *UciRequest_Info) GetCurrmovenumber() uint32 {
+	if m != nil {
+		return m.Currmovenumber
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetHashfull() uint32 {
+	if m != nil {
+		return m.Hashfull
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetNps() uint32 {
+	if m != nil {
+		return m.Nps
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetTbhits() uint32 {
+	if m != nil {
+		return m.Tbhits
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetCpuload() uint32 {
+	if m != nil {
+		return m.Cpuload
+	}
+	return 0
+}
+
+func (m *UciRequest_Info) GetString_() string {
+	if m != nil {
+		return m.String_
+	}
+	return ""
+}
+
+func (m *UciRequest_Info) GetRefutation() []string {
+	if m != nil {
+		return m.Refutation
+	}
+	return nil
+}
+
+func (m *UciRequest_Info) GetCurrline() string {
+	if m != nil {
+		return m.Currline
+	}
+	return ""
+}
+
+type UciResponse struct {
+	MessageType          UciResponse_MessageType `protobuf:"varint,1,opt,name=messageType,proto3,enum=UciResponse_MessageType" json:"messageType,omitempty"`
+	Debug                bool                    `protobuf:"varint,2,opt,name=debug,proto3" json:"debug,omitempty"`
+	SetOption            *UciResponse_SetOption  `protobuf:"bytes,3,opt,name=setOption,proto3" json:"setOption,omitempty"`
+	Position             *UciResponse_Position   `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
+	XXX_unrecognized     []byte                  `json:"-"`
+	XXX_sizecache        int32                   `json:"-"`
+}
+
+func (m *UciResponse) Reset()         { *m = UciResponse{} }
+func (m *UciResponse) String() string { return proto.CompactTextString(m) }
+func (*UciResponse) ProtoMessage()    {}
+func (*UciResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{1}
+}
+
+func (m *UciResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciResponse.Unmarshal(m, b)
+}
+func (m *UciResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciResponse.Marshal(b, m, deterministic)
+}
+func (m *UciResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciResponse.Merge(m, src)
+}
+func (m *UciResponse) XXX_Size() int {
+	return xxx_messageInfo_UciResponse.Size(m)
+}
+func (m *UciResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciResponse proto.InternalMessageInfo
+
+func (m *UciResponse) GetMessageType() UciResponse_MessageType {
+	if m != nil {
+		return m.MessageType
+	}
+	return UciResponse_UCI
+}
+
+func (m *UciResponse) GetDebug() bool {
+	if m != nil {
+		return m.Debug
+	}
+	return false
+}
+
+func (m *UciResponse) GetSetOption() *UciResponse_SetOption {
+	if m != nil {
+		return m.SetOption
+	}
+	return nil
+}
+
+func (m *UciResponse) GetPosition() *UciResponse_Position {
+	if m != nil {
+		return m.Position
+	}
+	return nil
+}
+
+type UciResponse_SetOption struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Value                string   `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciResponse_SetOption) Reset()         { *m = UciResponse_SetOption{} }
+func (m *UciResponse_SetOption) String() string { return proto.CompactTextString(m) }
+func (*UciResponse_SetOption) ProtoMessage()    {}
+func (*UciResponse_SetOption) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{1, 0}
+}
+
+func (m *UciResponse_SetOption) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciResponse_SetOption.Unmarshal(m, b)
+}
+func (m *UciResponse_SetOption) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciResponse_SetOption.Marshal(b, m, deterministic)
+}
+func (m *UciResponse_SetOption) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciResponse_SetOption.Merge(m, src)
+}
+func (m *UciResponse_SetOption) XXX_Size() int {
+	return xxx_messageInfo_UciResponse_SetOption.Size(m)
+}
+func (m *UciResponse_SetOption) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciResponse_SetOption.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciResponse_SetOption proto.InternalMessageInfo
+
+func (m *UciResponse_SetOption) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *UciResponse_SetOption) GetValue() string {
+	if m != nil {
+		return m.Value
+	}
+	return ""
+}
+
+type UciResponse_Position struct {
+	IsFen                bool     `protobuf:"varint,1,opt,name=isFen,proto3" json:"isFen,omitempty"`
+	Moves                []string `protobuf:"bytes,2,rep,name=moves,proto3" json:"moves,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciResponse_Position) Reset()         { *m = UciResponse_Position{} }
+func (m *UciResponse_Position) String() string { return proto.CompactTextString(m) }
+func (*UciResponse_Position) ProtoMessage()    {}
+func (*UciResponse_Position) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{1, 1}
+}
+
+func (m *UciResponse_Position) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciResponse_Position.Unmarshal(m, b)
+}
+func (m *UciResponse_Position) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciResponse_Position.Marshal(b, m, deterministic)
+}
+func (m *UciResponse_Position) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciResponse_Position.Merge(m, src)
+}
+func (m *UciResponse_Position) XXX_Size() int {
+	return xxx_messageInfo_UciResponse_Position.Size(m)
+}
+func (m *UciResponse_Position) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciResponse_Position.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciResponse_Position proto.InternalMessageInfo
+
+func (m *UciResponse_Position) GetIsFen() bool {
+	if m != nil {
+		return m.IsFen
+	}
+	return false
+}
+
+func (m *UciResponse_Position) GetMoves() []string {
+	if m != nil {
+		return m.Moves
+	}
+	return nil
+}
+
+type UciResponse_Go struct {
+	Searchmoves          []string `protobuf:"bytes,1,rep,name=searchmoves,proto3" json:"searchmoves,omitempty"`
+	IsPonder             bool     `protobuf:"varint,2,opt,name=isPonder,proto3" json:"isPonder,omitempty"`
+	Wtime                uint32   `protobuf:"varint,3,opt,name=wtime,proto3" json:"wtime,omitempty"`
+	Btime                uint32   `protobuf:"varint,4,opt,name=btime,proto3" json:"btime,omitempty"`
+	Winc                 uint32   `protobuf:"varint,5,opt,name=winc,proto3" json:"winc,omitempty"`
+	Binc                 uint32   `protobuf:"varint,6,opt,name=binc,proto3" json:"binc,omitempty"`
+	Movestogo            uint32   `protobuf:"varint,7,opt,name=movestogo,proto3" json:"movestogo,omitempty"`
+	Depth                uint32   `protobuf:"varint,8,opt,name=depth,proto3" json:"depth,omitempty"`
+	Nodes                uint32   `protobuf:"varint,9,opt,name=nodes,proto3" json:"nodes,omitempty"`
+	Movetime             uint32   `protobuf:"varint,10,opt,name=movetime,proto3" json:"movetime,omitempty"`
+	IsInfinite           bool     `protobuf:"varint,11,opt,name=isInfinite,proto3" json:"isInfinite,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UciResponse_Go) Reset()         { *m = UciResponse_Go{} }
+func (m *UciResponse_Go) String() string { return proto.CompactTextString(m) }
+func (*UciResponse_Go) ProtoMessage()    {}
+func (*UciResponse_Go) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cdc17040449aa6b8, []int{1, 2}
+}
+
+func (m *UciResponse_Go) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UciResponse_Go.Unmarshal(m, b)
+}
+func (m *UciResponse_Go) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UciResponse_Go.Marshal(b, m, deterministic)
+}
+func (m *UciResponse_Go) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UciResponse_Go.Merge(m, src)
+}
+func (m *UciResponse_Go) XXX_Size() int {
+	return xxx_messageInfo_UciResponse_Go.Size(m)
+}
+func (m *UciResponse_Go) XXX_DiscardUnknown() {
+	xxx_messageInfo_UciResponse_Go.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UciResponse_Go proto.InternalMessageInfo
+
+func (m *UciResponse_Go) GetSearchmoves() []string {
+	if m != nil {
+		return m.Searchmoves
+	}
+	return nil
+}
+
+func (m *UciResponse_Go) GetIsPonder() bool {
+	if m != nil {
+		return m.IsPonder
+	}
+	return false
+}
+
+func (m *UciResponse_Go) GetWtime() uint32 {
+	if m != nil {
+		return m.Wtime
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetBtime() uint32 {
+	if m != nil {
+		return m.Btime
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetWinc() uint32 {
+	if m != nil {
+		return m.Winc
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetBinc() uint32 {
+	if m != nil {
+		return m.Binc
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetMovestogo() uint32 {
+	if m != nil {
+		return m.Movestogo
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetDepth() uint32 {
+	if m != nil {
+		return m.Depth
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetNodes() uint32 {
+	if m != nil {
+		return m.Nodes
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetMovetime() uint32 {
+	if m != nil {
+		return m.Movetime
+	}
+	return 0
+}
+
+func (m *UciResponse_Go) GetIsInfinite() bool {
+	if m != nil {
+		return m.IsInfinite
+	}
+	return false
 }
 
 type Person struct {
@@ -112,7 +941,7 @@ func (m *Person) Reset()         { *m = Person{} }
 func (m *Person) String() string { return proto.CompactTextString(m) }
 func (*Person) ProtoMessage()    {}
 func (*Person) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{0}
+	return fileDescriptor_cdc17040449aa6b8, []int{2}
 }
 
 func (m *Person) XXX_Unmarshal(b []byte) error {
@@ -164,7 +993,7 @@ func (m *RatingFilter) Reset()         { *m = RatingFilter{} }
 func (m *RatingFilter) String() string { return proto.CompactTextString(m) }
 func (*RatingFilter) ProtoMessage()    {}
 func (*RatingFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{1}
+	return fileDescriptor_cdc17040449aa6b8, []int{3}
 }
 
 func (m *RatingFilter) XXX_Unmarshal(b []byte) error {
@@ -197,7 +1026,7 @@ func (m *GameProposals) Reset()         { *m = GameProposals{} }
 func (m *GameProposals) String() string { return proto.CompactTextString(m) }
 func (*GameProposals) ProtoMessage()    {}
 func (*GameProposals) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{2}
+	return fileDescriptor_cdc17040449aa6b8, []int{4}
 }
 
 func (m *GameProposals) XXX_Unmarshal(b []byte) error {
@@ -244,7 +1073,7 @@ func (m *GameControls) Reset()         { *m = GameControls{} }
 func (m *GameControls) String() string { return proto.CompactTextString(m) }
 func (*GameControls) ProtoMessage()    {}
 func (*GameControls) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{3}
+	return fileDescriptor_cdc17040449aa6b8, []int{5}
 }
 
 func (m *GameControls) XXX_Unmarshal(b []byte) error {
@@ -290,7 +1119,7 @@ func (m *Confimation) Reset()         { *m = Confimation{} }
 func (m *Confimation) String() string { return proto.CompactTextString(m) }
 func (*Confimation) ProtoMessage()    {}
 func (*Confimation) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{4}
+	return fileDescriptor_cdc17040449aa6b8, []int{6}
 }
 
 func (m *Confimation) XXX_Unmarshal(b []byte) error {
@@ -328,7 +1157,7 @@ func (m *RoomRequest) Reset()         { *m = RoomRequest{} }
 func (m *RoomRequest) String() string { return proto.CompactTextString(m) }
 func (*RoomRequest) ProtoMessage()    {}
 func (*RoomRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{5}
+	return fileDescriptor_cdc17040449aa6b8, []int{7}
 }
 
 func (m *RoomRequest) XXX_Unmarshal(b []byte) error {
@@ -360,7 +1189,7 @@ func (m *RoomMessage) Reset()         { *m = RoomMessage{} }
 func (m *RoomMessage) String() string { return proto.CompactTextString(m) }
 func (*RoomMessage) ProtoMessage()    {}
 func (*RoomMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{6}
+	return fileDescriptor_cdc17040449aa6b8, []int{8}
 }
 
 func (m *RoomMessage) XXX_Unmarshal(b []byte) error {
@@ -399,7 +1228,7 @@ func (m *GameRequestMessage) Reset()         { *m = GameRequestMessage{} }
 func (m *GameRequestMessage) String() string { return proto.CompactTextString(m) }
 func (*GameRequestMessage) ProtoMessage()    {}
 func (*GameRequestMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{7}
+	return fileDescriptor_cdc17040449aa6b8, []int{9}
 }
 
 func (m *GameRequestMessage) XXX_Unmarshal(b []byte) error {
@@ -438,7 +1267,7 @@ func (m *GameMessageResponse) Reset()         { *m = GameMessageResponse{} }
 func (m *GameMessageResponse) String() string { return proto.CompactTextString(m) }
 func (*GameMessageResponse) ProtoMessage()    {}
 func (*GameMessageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{8}
+	return fileDescriptor_cdc17040449aa6b8, []int{10}
 }
 
 func (m *GameMessageResponse) XXX_Unmarshal(b []byte) error {
@@ -478,7 +1307,7 @@ func (m *ClientGameMessage) Reset()         { *m = ClientGameMessage{} }
 func (m *ClientGameMessage) String() string { return proto.CompactTextString(m) }
 func (*ClientGameMessage) ProtoMessage()    {}
 func (*ClientGameMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{9}
+	return fileDescriptor_cdc17040449aa6b8, []int{11}
 }
 
 func (m *ClientGameMessage) XXX_Unmarshal(b []byte) error {
@@ -526,7 +1355,7 @@ func (m *GameState) Reset()         { *m = GameState{} }
 func (m *GameState) String() string { return proto.CompactTextString(m) }
 func (*GameState) ProtoMessage()    {}
 func (*GameState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{10}
+	return fileDescriptor_cdc17040449aa6b8, []int{12}
 }
 
 func (m *GameState) XXX_Unmarshal(b []byte) error {
@@ -580,7 +1409,7 @@ func (m *TimeControl) Reset()         { *m = TimeControl{} }
 func (m *TimeControl) String() string { return proto.CompactTextString(m) }
 func (*TimeControl) ProtoMessage()    {}
 func (*TimeControl) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{11}
+	return fileDescriptor_cdc17040449aa6b8, []int{13}
 }
 
 func (m *TimeControl) XXX_Unmarshal(b []byte) error {
@@ -627,7 +1456,7 @@ func (m *TimeState) Reset()         { *m = TimeState{} }
 func (m *TimeState) String() string { return proto.CompactTextString(m) }
 func (*TimeState) ProtoMessage()    {}
 func (*TimeState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{12}
+	return fileDescriptor_cdc17040449aa6b8, []int{14}
 }
 
 func (m *TimeState) XXX_Unmarshal(b []byte) error {
@@ -674,7 +1503,7 @@ func (m *ServerGameMessage) Reset()         { *m = ServerGameMessage{} }
 func (m *ServerGameMessage) String() string { return proto.CompactTextString(m) }
 func (*ServerGameMessage) ProtoMessage()    {}
 func (*ServerGameMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cdc17040449aa6b8, []int{13}
+	return fileDescriptor_cdc17040449aa6b8, []int{15}
 }
 
 func (m *ServerGameMessage) XXX_Unmarshal(b []byte) error {
@@ -710,9 +1539,21 @@ func (m *ServerGameMessage) GetUciMessage() string {
 }
 
 func init() {
+	proto.RegisterEnum("UciRequest_MessageType", UciRequest_MessageType_name, UciRequest_MessageType_value)
+	proto.RegisterEnum("UciResponse_MessageType", UciResponse_MessageType_name, UciResponse_MessageType_value)
 	proto.RegisterEnum("GameMessageResponse_GameMessageResponseTypes", GameMessageResponse_GameMessageResponseTypes_name, GameMessageResponse_GameMessageResponseTypes_value)
 	proto.RegisterEnum("ClientGameMessage_MessageType", ClientGameMessage_MessageType_name, ClientGameMessage_MessageType_value)
 	proto.RegisterEnum("ServerGameMessage_MessageType", ServerGameMessage_MessageType_name, ServerGameMessage_MessageType_value)
+	proto.RegisterType((*UciRequest)(nil), "UciRequest")
+	proto.RegisterType((*UciRequest_Option)(nil), "UciRequest.Option")
+	proto.RegisterType((*UciRequest_Id)(nil), "UciRequest.Id")
+	proto.RegisterType((*UciRequest_BestMove)(nil), "UciRequest.BestMove")
+	proto.RegisterType((*UciRequest_Score)(nil), "UciRequest.Score")
+	proto.RegisterType((*UciRequest_Info)(nil), "UciRequest.Info")
+	proto.RegisterType((*UciResponse)(nil), "UciResponse")
+	proto.RegisterType((*UciResponse_SetOption)(nil), "UciResponse.SetOption")
+	proto.RegisterType((*UciResponse_Position)(nil), "UciResponse.Position")
+	proto.RegisterType((*UciResponse_Go)(nil), "UciResponse.Go")
 	proto.RegisterType((*Person)(nil), "Person")
 	proto.RegisterType((*RatingFilter)(nil), "RatingFilter")
 	proto.RegisterType((*GameProposals)(nil), "GameProposals")
@@ -732,49 +1573,95 @@ func init() {
 func init() { proto.RegisterFile("service/chess.proto", fileDescriptor_cdc17040449aa6b8) }
 
 var fileDescriptor_cdc17040449aa6b8 = []byte{
-	// 666 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0xdb, 0x4e, 0xdb, 0x4c,
-	0x10, 0x8e, 0x03, 0x04, 0x32, 0x76, 0xf2, 0x9b, 0xcd, 0x2f, 0x1a, 0xe5, 0x82, 0xa2, 0x6d, 0x2f,
-	0x72, 0xd3, 0x85, 0xa6, 0x95, 0x50, 0xa5, 0x56, 0x6a, 0x94, 0xba, 0x08, 0x95, 0x14, 0xba, 0x09,
-	0xbd, 0x45, 0xc6, 0x99, 0xc0, 0x8a, 0x78, 0xd7, 0xd8, 0x0b, 0x88, 0x97, 0xe8, 0x5b, 0x94, 0xe7,
-	0xac, 0xbc, 0x36, 0xc4, 0x21, 0x41, 0x3d, 0xdc, 0xcd, 0xe1, 0x9b, 0xc3, 0xee, 0xcc, 0x37, 0xd0,
-	0x48, 0x30, 0xbe, 0x16, 0x01, 0x6e, 0x07, 0xe7, 0x98, 0x24, 0x2c, 0x8a, 0x95, 0x56, 0xf4, 0x13,
-	0x54, 0x8e, 0x30, 0x4e, 0x94, 0x24, 0x75, 0x28, 0x8b, 0x51, 0xd3, 0xda, 0xb2, 0xda, 0x55, 0x5e,
-	0x16, 0x23, 0x42, 0x60, 0x59, 0xfa, 0x21, 0x36, 0xcb, 0xc6, 0x62, 0x64, 0xb2, 0x01, 0x95, 0xd8,
-	0xd7, 0x42, 0x9e, 0x35, 0x97, 0xb6, 0xac, 0xf6, 0x0a, 0xcf, 0x35, 0x5a, 0x07, 0x87, 0x1b, 0xe9,
-	0xb3, 0x98, 0x68, 0x8c, 0xe9, 0x08, 0x6a, 0x7b, 0x7e, 0x88, 0x47, 0xb1, 0x8a, 0x54, 0xe2, 0x4f,
-	0x12, 0xc2, 0xc0, 0xd6, 0x22, 0xc4, 0x9e, 0x92, 0x3a, 0x56, 0x13, 0x53, 0xc5, 0xee, 0x38, 0x6c,
-	0x38, 0xb5, 0xf1, 0x22, 0x80, 0xbc, 0x80, 0x35, 0x15, 0x45, 0x4a, 0xa2, 0xd4, 0xa6, 0x01, 0xbb,
-	0xb3, 0xca, 0xb2, 0x3e, 0xf9, 0x83, 0x83, 0x5e, 0x82, 0x93, 0x56, 0xc9, 0x63, 0xfe, 0xbe, 0xc8,
-	0x6b, 0x70, 0xe2, 0x42, 0xd7, 0x79, 0xa1, 0x1a, 0x2b, 0x3e, 0x85, 0xcf, 0x40, 0xe8, 0x2e, 0xd8,
-	0x3d, 0x25, 0xc7, 0x22, 0xf4, 0xb5, 0x50, 0x92, 0xb4, 0xe1, 0xbf, 0x60, 0xaa, 0xf6, 0xd4, 0x08,
-	0xf3, 0x0f, 0x7c, 0x6c, 0xa6, 0x35, 0xb0, 0xb9, 0x52, 0x21, 0xc7, 0xcb, 0x2b, 0x4c, 0x34, 0x7d,
-	0x9e, 0xa9, 0x7d, 0x4c, 0x12, 0xff, 0x0c, 0x89, 0x0b, 0x4b, 0x61, 0x72, 0x96, 0xc7, 0xa6, 0x22,
-	0x7d, 0x09, 0x24, 0x7d, 0x5b, 0x8e, 0xbf, 0xc7, 0x3d, 0x9a, 0x11, 0xfd, 0x61, 0x41, 0x23, 0x85,
-	0xe5, 0x7e, 0x8e, 0x49, 0xa4, 0x64, 0x82, 0xa4, 0x0b, 0xcb, 0xfa, 0x36, 0xca, 0x9a, 0xa9, 0x77,
-	0x5e, 0xb1, 0x05, 0x98, 0x45, 0xb6, 0xe1, 0x6d, 0x84, 0x09, 0x37, 0xa1, 0xf4, 0x2d, 0x34, 0x9f,
-	0x42, 0x90, 0x0a, 0x94, 0x0f, 0xbf, 0xb8, 0x25, 0xe2, 0x82, 0xb3, 0x7f, 0x70, 0xe0, 0xed, 0x75,
-	0x0f, 0x4e, 0xfa, 0x87, 0xdf, 0x3d, 0xd7, 0xa2, 0x3f, 0x2d, 0x58, 0xef, 0x4d, 0x04, 0x4a, 0x5d,
-	0x08, 0x26, 0x1f, 0xc1, 0x0e, 0x33, 0x71, 0x38, 0xed, 0x6a, 0x93, 0xcd, 0x01, 0x59, 0x7f, 0x8a,
-	0xe2, 0xc5, 0x10, 0xb2, 0x09, 0x70, 0x15, 0x88, 0xdc, 0x9d, 0xaf, 0x64, 0xc1, 0x42, 0x19, 0xd8,
-	0x85, 0x58, 0xb2, 0x0a, 0x4b, 0xc7, 0xbd, 0x7d, 0xb7, 0x44, 0x36, 0x80, 0xec, 0x75, 0xfb, 0xde,
-	0xc9, 0x60, 0xd8, 0x1d, 0x7a, 0x27, 0xdc, 0xfb, 0x76, 0xec, 0x0d, 0x86, 0xae, 0x45, 0x6f, 0xa0,
-	0x9a, 0xd6, 0x1d, 0x68, 0x5f, 0x9b, 0xdf, 0x1f, 0xa3, 0xbc, 0xff, 0xfd, 0x31, 0xca, 0xc7, 0x9b,
-	0x54, 0xfe, 0xdd, 0x26, 0xb5, 0xa1, 0x9a, 0xaa, 0x26, 0x9d, 0xa1, 0x86, 0xdd, 0x01, 0x83, 0x36,
-	0x16, 0x3e, 0x75, 0xd2, 0x0f, 0x60, 0x17, 0xb2, 0xa4, 0x24, 0x4b, 0x7d, 0xa6, 0xf6, 0x0a, 0x37,
-	0x32, 0x69, 0xc1, 0x9a, 0x90, 0x41, 0x8c, 0x21, 0x66, 0xbb, 0xbf, 0xc2, 0x1f, 0x74, 0x7a, 0x01,
-	0xd5, 0x87, 0xb4, 0x84, 0x01, 0xb9, 0x39, 0x17, 0x1a, 0x53, 0x0b, 0xc7, 0xd0, 0x17, 0x32, 0x65,
-	0x66, 0x96, 0x6a, 0x81, 0x27, 0xc5, 0x9f, 0x4e, 0xfc, 0xe0, 0x62, 0x16, 0x9f, 0x95, 0x58, 0xe0,
-	0xa1, 0x77, 0x16, 0xac, 0x0f, 0x30, 0xbe, 0xc6, 0xf8, 0x0f, 0x86, 0x39, 0x07, 0xfc, 0xf7, 0x61,
-	0x6e, 0x3f, 0x31, 0xcc, 0x67, 0xd0, 0x98, 0x19, 0xe6, 0xe0, 0xe8, 0xf0, 0xeb, 0xc0, 0x73, 0xad,
-	0xce, 0x5d, 0x19, 0xdc, 0x5e, 0x7a, 0xd4, 0xba, 0x51, 0x34, 0x11, 0x41, 0xc6, 0xcd, 0x77, 0x00,
-	0xd9, 0x88, 0x63, 0xf4, 0x43, 0xd2, 0x60, 0xf3, 0x74, 0x6a, 0x91, 0xf9, 0xae, 0x69, 0x69, 0xc7,
-	0x22, 0xef, 0xb3, 0xd0, 0x6e, 0x60, 0x12, 0x91, 0xf9, 0x45, 0x6d, 0xfd, 0xbf, 0x88, 0x3e, 0xb4,
-	0xd4, 0xb6, 0x76, 0x2c, 0xc2, 0xc0, 0xe9, 0xfb, 0x42, 0xf6, 0xce, 0x7d, 0x9d, 0x72, 0x9c, 0x38,
-	0xac, 0xc0, 0xfc, 0x56, 0xa6, 0x15, 0xab, 0xed, 0x80, 0x5d, 0xe8, 0x8d, 0xd4, 0x58, 0xf1, 0xa8,
-	0xb5, 0xea, 0x6c, 0xe6, 0x92, 0x9a, 0x88, 0x5d, 0x70, 0x73, 0xcc, 0x58, 0xc4, 0xf9, 0x29, 0x5a,
-	0xf8, 0x40, 0x87, 0x15, 0xae, 0x15, 0x2d, 0x9d, 0x56, 0xcc, 0xd1, 0x7f, 0xf3, 0x2b, 0x00, 0x00,
-	0xff, 0xff, 0x1f, 0x41, 0xbb, 0x9d, 0x0b, 0x06, 0x00, 0x00,
+	// 1396 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x57, 0xcb, 0x6e, 0xdb, 0x46,
+	0x14, 0x35, 0x69, 0x4b, 0xa6, 0xae, 0x1e, 0x61, 0x26, 0x69, 0x42, 0x08, 0x45, 0x6a, 0xb0, 0x41,
+	0x6a, 0x14, 0xa8, 0x92, 0xb8, 0x69, 0x8b, 0x06, 0x28, 0x50, 0x47, 0x66, 0x5c, 0x22, 0xb1, 0xa9,
+	0x8c, 0xe4, 0x06, 0x59, 0x05, 0x14, 0x35, 0xb2, 0x88, 0x50, 0x1c, 0x86, 0x43, 0xc9, 0xe9, 0xae,
+	0x5f, 0xd0, 0x55, 0x97, 0xdd, 0xb6, 0xbb, 0xfe, 0x46, 0xff, 0xa6, 0xff, 0x50, 0xdc, 0x99, 0x91,
+	0x44, 0x39, 0x72, 0x5f, 0xbb, 0x39, 0xe7, 0x9e, 0xb9, 0xf3, 0xb8, 0x0f, 0x0e, 0xe1, 0x86, 0x60,
+	0xf9, 0x3c, 0x8e, 0xd8, 0xfd, 0x68, 0xc2, 0x84, 0xe8, 0x64, 0x39, 0x2f, 0xb8, 0xfb, 0x87, 0x05,
+	0x70, 0x16, 0xc5, 0x94, 0xbd, 0x9d, 0x31, 0x51, 0x90, 0xaf, 0xa1, 0x3e, 0x65, 0x42, 0x84, 0xe7,
+	0x6c, 0xf0, 0x43, 0xc6, 0x1c, 0x63, 0xcf, 0xd8, 0x6f, 0x1d, 0xdc, 0xee, 0xac, 0x14, 0x9d, 0x93,
+	0x95, 0x99, 0x96, 0xb5, 0xe4, 0x0e, 0x98, 0xf1, 0xc8, 0x31, 0xf7, 0x8c, 0xfd, 0xfa, 0x41, 0xab,
+	0x3c, 0xc3, 0x1f, 0x51, 0x33, 0x1e, 0x91, 0x07, 0x60, 0x0d, 0x99, 0x28, 0x4e, 0xf8, 0x9c, 0x39,
+	0xdb, 0x52, 0x75, 0xb3, 0xac, 0x7a, 0xa2, 0x6d, 0x74, 0xa9, 0x22, 0x77, 0x61, 0x27, 0x4e, 0xc7,
+	0xdc, 0xd9, 0x91, 0x6a, 0x7b, 0xcd, 0x67, 0x3a, 0xe6, 0x54, 0x5a, 0xc9, 0xa7, 0x50, 0xe5, 0x59,
+	0x11, 0xf3, 0xd4, 0xa9, 0x48, 0x1d, 0x29, 0xeb, 0x02, 0x69, 0xa1, 0x5a, 0xd1, 0xfe, 0xd1, 0x80,
+	0xaa, 0xa2, 0x08, 0x81, 0x9d, 0x34, 0x9c, 0xaa, 0x23, 0xd6, 0xa8, 0x1c, 0x23, 0x57, 0xe0, 0xb1,
+	0x4d, 0xc5, 0xe1, 0x98, 0x38, 0xb0, 0x3b, 0x62, 0xe3, 0x70, 0x96, 0x14, 0x72, 0xd7, 0x35, 0xba,
+	0x80, 0xc4, 0x86, 0xed, 0x69, 0x9c, 0xca, 0xdd, 0x55, 0x28, 0x0e, 0x25, 0x13, 0xbe, 0x93, 0xfb,
+	0x40, 0x26, 0x7c, 0x87, 0xcc, 0x3c, 0xcc, 0x9d, 0xaa, 0x9c, 0x89, 0xc3, 0xf6, 0x03, 0x30, 0xfd,
+	0xd1, 0xc6, 0xd5, 0x6f, 0x41, 0x35, 0x9c, 0x15, 0x13, 0x9e, 0xeb, 0xf5, 0x35, 0x6a, 0xbb, 0x60,
+	0x2d, 0x2e, 0x07, 0x35, 0x19, 0x4f, 0x47, 0x2c, 0x77, 0x8c, 0xbd, 0x6d, 0xd4, 0x28, 0xd4, 0x7e,
+	0x09, 0x95, 0x7e, 0xc4, 0x73, 0x46, 0x5a, 0x60, 0x46, 0x99, 0x74, 0x5b, 0xa1, 0x66, 0x94, 0xe1,
+	0x42, 0xd3, 0xb0, 0x50, 0x47, 0xaa, 0x50, 0x39, 0x26, 0x37, 0xa1, 0x92, 0xf0, 0x0b, 0x96, 0xcb,
+	0x03, 0x55, 0xa8, 0x02, 0xc8, 0xce, 0xb2, 0x8c, 0xe5, 0xfa, 0x40, 0x0a, 0xb4, 0x7f, 0xdf, 0x86,
+	0x1d, 0xbc, 0x6c, 0x34, 0x8f, 0x58, 0x56, 0x4c, 0xa4, 0xef, 0x26, 0x55, 0x80, 0xb4, 0xc1, 0x12,
+	0x2c, 0x51, 0x06, 0x53, 0x1a, 0x96, 0x58, 0xde, 0x66, 0x3c, 0x55, 0xc1, 0x6e, 0x52, 0x39, 0x46,
+	0x2f, 0x29, 0x1f, 0x31, 0x21, 0x17, 0x69, 0x52, 0x05, 0x70, 0xd3, 0xd9, 0x5c, 0x5f, 0x9b, 0x99,
+	0xcd, 0xf1, 0xce, 0xa7, 0xb3, 0xa4, 0x88, 0xb3, 0xb9, 0xbc, 0xb9, 0x0a, 0x5d, 0x40, 0xf2, 0x09,
+	0x54, 0x04, 0x9e, 0xd3, 0xd9, 0x95, 0xb1, 0xbe, 0x5e, 0x8e, 0xb5, 0xbc, 0x00, 0xaa, 0xec, 0xb8,
+	0xb1, 0x68, 0x96, 0xe7, 0x53, 0xcc, 0x36, 0x4b, 0x5e, 0xe7, 0x12, 0x93, 0x7b, 0xd0, 0x5a, 0x8c,
+	0xd3, 0xd9, 0x74, 0xc8, 0x72, 0xa7, 0x26, 0x77, 0x73, 0x89, 0x45, 0x1f, 0x93, 0x50, 0x4c, 0xc6,
+	0xb3, 0x24, 0x71, 0x40, 0x1d, 0x6e, 0x81, 0x31, 0xb0, 0x69, 0x26, 0x9c, 0xba, 0xa4, 0x71, 0x88,
+	0xa1, 0x29, 0x86, 0x93, 0xb8, 0x10, 0x4e, 0x43, 0x92, 0x1a, 0xe1, 0x61, 0xa2, 0x6c, 0x96, 0xf0,
+	0x70, 0xe4, 0x34, 0xa5, 0x61, 0x01, 0x71, 0x86, 0x28, 0xf2, 0x38, 0x3d, 0x77, 0x5a, 0x2a, 0xe0,
+	0x0a, 0x91, 0x3b, 0x00, 0x39, 0x1b, 0xcf, 0x8a, 0x50, 0x66, 0xf5, 0x35, 0x19, 0xe8, 0x12, 0xb3,
+	0x38, 0x5b, 0x12, 0xa7, 0xcc, 0xb1, 0x57, 0x67, 0x43, 0xec, 0x5e, 0x40, 0xbd, 0x54, 0xa1, 0xa4,
+	0x0a, 0xa6, 0x7f, 0x64, 0x6f, 0x11, 0x80, 0x6a, 0xd0, 0x1b, 0xf8, 0xc1, 0xa9, 0x6d, 0x90, 0x1a,
+	0x54, 0xce, 0xba, 0x7e, 0xf0, 0xcc, 0x36, 0x49, 0x1d, 0x76, 0xa9, 0x77, 0x78, 0xf4, 0x2a, 0x78,
+	0x66, 0x6f, 0x93, 0x06, 0x58, 0x4f, 0xbc, 0xfe, 0xe0, 0x24, 0xf8, 0xde, 0xb3, 0x77, 0x08, 0x81,
+	0x56, 0x37, 0xe8, 0xbd, 0xea, 0xd1, 0x60, 0xe0, 0x75, 0xe5, 0xcc, 0x0a, 0xb1, 0xa1, 0x41, 0xbd,
+	0x63, 0xbf, 0x3f, 0xa0, 0x87, 0x92, 0xa9, 0x12, 0x0b, 0x76, 0xfc, 0xd3, 0xa7, 0x81, 0xbd, 0xeb,
+	0xfe, 0x59, 0x81, 0xba, 0x0c, 0x86, 0xc8, 0x78, 0x2a, 0x18, 0x79, 0xbc, 0xa9, 0x93, 0x38, 0x9d,
+	0x92, 0xe4, 0xea, 0x56, 0x22, 0x73, 0x6d, 0x38, 0x3b, 0x97, 0x29, 0x65, 0x51, 0x05, 0xc8, 0x23,
+	0xa8, 0x09, 0x56, 0xa8, 0xf2, 0xd5, 0x1d, 0xe4, 0xd6, 0x9a, 0xbf, 0xfe, 0xc2, 0x4a, 0x57, 0x42,
+	0xf2, 0x10, 0xac, 0x8c, 0x8b, 0x58, 0x4e, 0x52, 0x8d, 0xe4, 0x83, 0xb5, 0x49, 0x3d, 0x6d, 0xa4,
+	0x4b, 0x59, 0xfb, 0x0b, 0xa8, 0x2d, 0x5d, 0x6d, 0xac, 0xd4, 0x9b, 0x50, 0x99, 0x87, 0xc9, 0x6c,
+	0xd1, 0x28, 0x14, 0x68, 0x7f, 0x09, 0xd6, 0xc2, 0x19, 0x2a, 0x62, 0xf1, 0x94, 0xa5, 0x72, 0x9a,
+	0x45, 0x15, 0x40, 0x16, 0xd3, 0x4b, 0x38, 0xa6, 0x8c, 0xa9, 0x02, 0xed, 0x5f, 0x4c, 0x30, 0x8f,
+	0x39, 0xd9, 0x83, 0xba, 0x60, 0x61, 0x1e, 0x4d, 0x94, 0x44, 0xd5, 0x77, 0x99, 0xc2, 0xb8, 0xc7,
+	0xa2, 0xa7, 0xca, 0x5f, 0xdd, 0xcc, 0x12, 0xa3, 0xeb, 0x8b, 0x52, 0xb5, 0x29, 0x80, 0xec, 0x50,
+	0xb2, 0xba, 0xdc, 0x24, 0xc0, 0x23, 0x5d, 0xc4, 0x69, 0x24, 0x0b, 0xae, 0x49, 0xe5, 0x18, 0xb9,
+	0x21, 0x72, 0x55, 0xc5, 0xe1, 0x98, 0x7c, 0x08, 0x35, 0xb9, 0x70, 0xc1, 0xcf, 0xb9, 0x2c, 0xb8,
+	0x26, 0x5d, 0x11, 0xab, 0x86, 0x60, 0x95, 0x1b, 0xc2, 0xb2, 0xc0, 0x6b, 0xe5, 0x02, 0x6f, 0x83,
+	0x85, 0x13, 0xe5, 0x56, 0x74, 0x25, 0x2d, 0x30, 0x66, 0x7b, 0x2c, 0xfc, 0x74, 0x1c, 0xa7, 0x71,
+	0xc1, 0x64, 0x41, 0x59, 0xb4, 0xc4, 0xb8, 0x3f, 0x1b, 0xeb, 0x29, 0xbd, 0x0b, 0xdb, 0x67, 0x5d,
+	0xdf, 0xde, 0xc2, 0x3c, 0x3e, 0xf2, 0x9e, 0x9c, 0x1d, 0xdb, 0x06, 0xe6, 0xb1, 0xdf, 0x97, 0x99,
+	0x6c, 0x9b, 0xa4, 0x09, 0xb5, 0xbe, 0x37, 0xd0, 0xe9, 0x2e, 0xd3, 0x5a, 0x25, 0xad, 0x47, 0xed,
+	0x1d, 0xd2, 0x02, 0x38, 0xeb, 0xfa, 0xa7, 0xde, 0xcb, 0xe3, 0xc3, 0x13, 0xcf, 0xae, 0xa0, 0xb5,
+	0x17, 0xf4, 0x7d, 0x9d, 0xce, 0x55, 0x30, 0x8f, 0x03, 0x7b, 0x17, 0xd3, 0xba, 0x3f, 0x08, 0x7a,
+	0xb6, 0x85, 0xce, 0x7a, 0xc1, 0xe9, 0x91, 0x47, 0xbf, 0xf3, 0x07, 0x76, 0x0d, 0x0d, 0x2f, 0xce,
+	0xfc, 0x81, 0x0d, 0xee, 0x11, 0x54, 0x7b, 0x2c, 0x17, 0x3c, 0xc5, 0xee, 0x15, 0x8f, 0x74, 0x7e,
+	0xe0, 0x87, 0x6e, 0x91, 0x31, 0xe6, 0x7a, 0x6f, 0xcf, 0xc3, 0x02, 0x4b, 0x5d, 0xf5, 0x5c, 0x8d,
+	0xdc, 0x16, 0x34, 0xa8, 0x1c, 0x3d, 0x8d, 0x93, 0x82, 0xe5, 0xee, 0x08, 0x9a, 0xc7, 0xe1, 0x94,
+	0xf5, 0x72, 0x9e, 0x71, 0x11, 0x26, 0x82, 0x74, 0xa0, 0x8e, 0xb7, 0xd4, 0xe5, 0x69, 0x91, 0xf3,
+	0x44, 0xae, 0x52, 0x3f, 0x68, 0x74, 0x06, 0x2b, 0x8e, 0x96, 0x05, 0xe4, 0x63, 0xb0, 0x78, 0x96,
+	0xf1, 0x94, 0xa5, 0x85, 0xfe, 0x16, 0xef, 0x76, 0xd4, 0x3e, 0xe9, 0xd2, 0xe0, 0xbe, 0x85, 0x06,
+	0xae, 0xa2, 0xe7, 0xfc, 0xf7, 0x45, 0x1e, 0x42, 0x23, 0x2f, 0xed, 0x5a, 0x2f, 0xd4, 0xec, 0x94,
+	0x8f, 0x42, 0xd7, 0x24, 0xee, 0x57, 0x50, 0xef, 0xf2, 0x74, 0x1c, 0x4f, 0x55, 0x0b, 0xdb, 0x87,
+	0x6b, 0xd1, 0x0a, 0x76, 0xf9, 0x68, 0x51, 0x60, 0x97, 0x69, 0xb7, 0x09, 0x75, 0xca, 0xf9, 0x54,
+	0x37, 0x79, 0xf7, 0x23, 0x05, 0x75, 0x42, 0xc8, 0x2f, 0xae, 0x38, 0xd7, 0x73, 0x71, 0xe8, 0xde,
+	0x05, 0x82, 0x67, 0xd3, 0xfa, 0x85, 0xee, 0x52, 0x8c, 0xdc, 0x9f, 0x0c, 0xb8, 0x81, 0x32, 0x6d,
+	0x5f, 0x76, 0xad, 0x43, 0xfd, 0x02, 0x50, 0xed, 0xea, 0xb3, 0xce, 0x06, 0xcd, 0x26, 0x0e, 0x13,
+	0x53, 0xa8, 0x07, 0x83, 0xfb, 0x08, 0x9c, 0xab, 0x14, 0x98, 0x5f, 0xc1, 0x33, 0x7b, 0x0b, 0x1b,
+	0xa9, 0xff, 0xfc, 0xb9, 0x77, 0x7c, 0xf8, 0xfc, 0xb5, 0x6c, 0xb7, 0x86, 0xfb, 0xab, 0x01, 0xd7,
+	0xbb, 0x49, 0xcc, 0xd2, 0xa2, 0x34, 0x99, 0x7c, 0xbb, 0xa9, 0x89, 0xde, 0xe9, 0xbc, 0x27, 0xfc,
+	0xbb, 0x57, 0x19, 0xcc, 0xa2, 0x58, 0x9b, 0x75, 0x4a, 0x96, 0x18, 0xb7, 0x73, 0x45, 0x71, 0xdd,
+	0x02, 0x82, 0x15, 0xf2, 0xba, 0x3f, 0x38, 0x1c, 0x78, 0xaf, 0xa9, 0xf7, 0xe2, 0xcc, 0xeb, 0x0f,
+	0x6c, 0xc3, 0xbd, 0x80, 0x1a, 0xae, 0xdb, 0x2f, 0xf0, 0x21, 0x61, 0xc3, 0xf6, 0x58, 0xf7, 0xb8,
+	0x1a, 0xc5, 0xe1, 0xe5, 0x4c, 0x32, 0xff, 0x29, 0x93, 0xf6, 0xa1, 0x86, 0x50, 0xba, 0xd3, 0x3d,
+	0x1d, 0xa4, 0x5a, 0x32, 0x74, 0x65, 0x74, 0xbf, 0x81, 0x7a, 0xc9, 0xcb, 0xf2, 0x71, 0xa1, 0x5e,
+	0x3a, 0xea, 0x71, 0x81, 0xfd, 0x31, 0x8d, 0x72, 0x36, 0x65, 0x85, 0x7e, 0xef, 0x2c, 0xb1, 0xfb,
+	0x06, 0x6a, 0x4b, 0xb7, 0xa4, 0x03, 0xe4, 0x62, 0x12, 0x17, 0x0c, 0x19, 0xca, 0xa6, 0x61, 0x9c,
+	0x62, 0x65, 0x2a, 0x57, 0x1b, 0x2c, 0xa8, 0x1f, 0x26, 0x61, 0xf4, 0x66, 0x5d, 0xaf, 0x96, 0xd8,
+	0x60, 0x71, 0x7f, 0x33, 0xe0, 0x7a, 0x9f, 0xe5, 0x73, 0x96, 0xff, 0x8b, 0x60, 0xbe, 0x27, 0xfc,
+	0xff, 0xc1, 0xbc, 0x7f, 0x45, 0x30, 0x6f, 0xc3, 0x8d, 0xb5, 0x60, 0xf6, 0x7b, 0xc1, 0x69, 0xdf,
+	0xb3, 0x8d, 0x83, 0xc7, 0x60, 0x77, 0xf1, 0x67, 0xe0, 0x30, 0xcb, 0x92, 0x38, 0x52, 0xa5, 0x79,
+	0x4f, 0xce, 0x22, 0xf5, 0xd2, 0xd3, 0xaa, 0xdd, 0x28, 0x7f, 0x32, 0xdd, 0xad, 0x7d, 0xe3, 0x81,
+	0x31, 0xac, 0xca, 0x1f, 0x88, 0xcf, 0xff, 0x0a, 0x00, 0x00, 0xff, 0xff, 0xd9, 0x74, 0xd0, 0xa3,
+	0x57, 0x0c, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -789,11 +1676,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ChessApplicationClient interface {
-	GameStream(ctx context.Context, in *GameRequestMessage, opts ...grpc.CallOption) (ChessApplication_GameStreamClient, error)
-	GameAction(ctx context.Context, opts ...grpc.CallOption) (ChessApplication_GameActionClient, error)
-	MainChatRoom(ctx context.Context, in *RoomRequest, opts ...grpc.CallOption) (ChessApplication_MainChatRoomClient, error)
-	GameRequest(ctx context.Context, in *GameControls, opts ...grpc.CallOption) (ChessApplication_GameRequestClient, error)
-	GameConfirmation(ctx context.Context, in *GameRequestMessage, opts ...grpc.CallOption) (*Confimation, error)
+	UCI(ctx context.Context, opts ...grpc.CallOption) (ChessApplication_UCIClient, error)
 }
 
 type chessApplicationClient struct {
@@ -804,312 +1687,90 @@ func NewChessApplicationClient(cc *grpc.ClientConn) ChessApplicationClient {
 	return &chessApplicationClient{cc}
 }
 
-func (c *chessApplicationClient) GameStream(ctx context.Context, in *GameRequestMessage, opts ...grpc.CallOption) (ChessApplication_GameStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_ChessApplication_serviceDesc.Streams[0], "/ChessApplication/GameStream", opts...)
+func (c *chessApplicationClient) UCI(ctx context.Context, opts ...grpc.CallOption) (ChessApplication_UCIClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ChessApplication_serviceDesc.Streams[0], "/ChessApplication/UCI", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &chessApplicationGameStreamClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
+	x := &chessApplicationUCIClient{stream}
 	return x, nil
 }
 
-type ChessApplication_GameStreamClient interface {
-	Recv() (*ServerGameMessage, error)
+type ChessApplication_UCIClient interface {
+	Send(*UciRequest) error
+	Recv() (*UciResponse, error)
 	grpc.ClientStream
 }
 
-type chessApplicationGameStreamClient struct {
+type chessApplicationUCIClient struct {
 	grpc.ClientStream
 }
 
-func (x *chessApplicationGameStreamClient) Recv() (*ServerGameMessage, error) {
-	m := new(ServerGameMessage)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *chessApplicationClient) GameAction(ctx context.Context, opts ...grpc.CallOption) (ChessApplication_GameActionClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_ChessApplication_serviceDesc.Streams[1], "/ChessApplication/GameAction", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &chessApplicationGameActionClient{stream}
-	return x, nil
-}
-
-type ChessApplication_GameActionClient interface {
-	Send(*ClientGameMessage) error
-	Recv() (*GameMessageResponse, error)
-	grpc.ClientStream
-}
-
-type chessApplicationGameActionClient struct {
-	grpc.ClientStream
-}
-
-func (x *chessApplicationGameActionClient) Send(m *ClientGameMessage) error {
+func (x *chessApplicationUCIClient) Send(m *UciRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *chessApplicationGameActionClient) Recv() (*GameMessageResponse, error) {
-	m := new(GameMessageResponse)
+func (x *chessApplicationUCIClient) Recv() (*UciResponse, error) {
+	m := new(UciResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
-}
-
-func (c *chessApplicationClient) MainChatRoom(ctx context.Context, in *RoomRequest, opts ...grpc.CallOption) (ChessApplication_MainChatRoomClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_ChessApplication_serviceDesc.Streams[2], "/ChessApplication/MainChatRoom", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &chessApplicationMainChatRoomClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type ChessApplication_MainChatRoomClient interface {
-	Recv() (*RoomMessage, error)
-	grpc.ClientStream
-}
-
-type chessApplicationMainChatRoomClient struct {
-	grpc.ClientStream
-}
-
-func (x *chessApplicationMainChatRoomClient) Recv() (*RoomMessage, error) {
-	m := new(RoomMessage)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *chessApplicationClient) GameRequest(ctx context.Context, in *GameControls, opts ...grpc.CallOption) (ChessApplication_GameRequestClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_ChessApplication_serviceDesc.Streams[3], "/ChessApplication/GameRequest", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &chessApplicationGameRequestClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type ChessApplication_GameRequestClient interface {
-	Recv() (*GameProposals, error)
-	grpc.ClientStream
-}
-
-type chessApplicationGameRequestClient struct {
-	grpc.ClientStream
-}
-
-func (x *chessApplicationGameRequestClient) Recv() (*GameProposals, error) {
-	m := new(GameProposals)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *chessApplicationClient) GameConfirmation(ctx context.Context, in *GameRequestMessage, opts ...grpc.CallOption) (*Confimation, error) {
-	out := new(Confimation)
-	err := c.cc.Invoke(ctx, "/ChessApplication/GameConfirmation", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ChessApplicationServer is the server API for ChessApplication service.
 type ChessApplicationServer interface {
-	GameStream(*GameRequestMessage, ChessApplication_GameStreamServer) error
-	GameAction(ChessApplication_GameActionServer) error
-	MainChatRoom(*RoomRequest, ChessApplication_MainChatRoomServer) error
-	GameRequest(*GameControls, ChessApplication_GameRequestServer) error
-	GameConfirmation(context.Context, *GameRequestMessage) (*Confimation, error)
+	UCI(ChessApplication_UCIServer) error
 }
 
 // UnimplementedChessApplicationServer can be embedded to have forward compatible implementations.
 type UnimplementedChessApplicationServer struct {
 }
 
-func (*UnimplementedChessApplicationServer) GameStream(req *GameRequestMessage, srv ChessApplication_GameStreamServer) error {
-	return status.Errorf(codes.Unimplemented, "method GameStream not implemented")
-}
-func (*UnimplementedChessApplicationServer) GameAction(srv ChessApplication_GameActionServer) error {
-	return status.Errorf(codes.Unimplemented, "method GameAction not implemented")
-}
-func (*UnimplementedChessApplicationServer) MainChatRoom(req *RoomRequest, srv ChessApplication_MainChatRoomServer) error {
-	return status.Errorf(codes.Unimplemented, "method MainChatRoom not implemented")
-}
-func (*UnimplementedChessApplicationServer) GameRequest(req *GameControls, srv ChessApplication_GameRequestServer) error {
-	return status.Errorf(codes.Unimplemented, "method GameRequest not implemented")
-}
-func (*UnimplementedChessApplicationServer) GameConfirmation(ctx context.Context, req *GameRequestMessage) (*Confimation, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GameConfirmation not implemented")
+func (*UnimplementedChessApplicationServer) UCI(srv ChessApplication_UCIServer) error {
+	return status.Errorf(codes.Unimplemented, "method UCI not implemented")
 }
 
 func RegisterChessApplicationServer(s *grpc.Server, srv ChessApplicationServer) {
 	s.RegisterService(&_ChessApplication_serviceDesc, srv)
 }
 
-func _ChessApplication_GameStream_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GameRequestMessage)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(ChessApplicationServer).GameStream(m, &chessApplicationGameStreamServer{stream})
+func _ChessApplication_UCI_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ChessApplicationServer).UCI(&chessApplicationUCIServer{stream})
 }
 
-type ChessApplication_GameStreamServer interface {
-	Send(*ServerGameMessage) error
+type ChessApplication_UCIServer interface {
+	Send(*UciResponse) error
+	Recv() (*UciRequest, error)
 	grpc.ServerStream
 }
 
-type chessApplicationGameStreamServer struct {
+type chessApplicationUCIServer struct {
 	grpc.ServerStream
 }
 
-func (x *chessApplicationGameStreamServer) Send(m *ServerGameMessage) error {
+func (x *chessApplicationUCIServer) Send(m *UciResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _ChessApplication_GameAction_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(ChessApplicationServer).GameAction(&chessApplicationGameActionServer{stream})
-}
-
-type ChessApplication_GameActionServer interface {
-	Send(*GameMessageResponse) error
-	Recv() (*ClientGameMessage, error)
-	grpc.ServerStream
-}
-
-type chessApplicationGameActionServer struct {
-	grpc.ServerStream
-}
-
-func (x *chessApplicationGameActionServer) Send(m *GameMessageResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *chessApplicationGameActionServer) Recv() (*ClientGameMessage, error) {
-	m := new(ClientGameMessage)
+func (x *chessApplicationUCIServer) Recv() (*UciRequest, error) {
+	m := new(UciRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func _ChessApplication_MainChatRoom_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(RoomRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(ChessApplicationServer).MainChatRoom(m, &chessApplicationMainChatRoomServer{stream})
-}
-
-type ChessApplication_MainChatRoomServer interface {
-	Send(*RoomMessage) error
-	grpc.ServerStream
-}
-
-type chessApplicationMainChatRoomServer struct {
-	grpc.ServerStream
-}
-
-func (x *chessApplicationMainChatRoomServer) Send(m *RoomMessage) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _ChessApplication_GameRequest_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GameControls)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(ChessApplicationServer).GameRequest(m, &chessApplicationGameRequestServer{stream})
-}
-
-type ChessApplication_GameRequestServer interface {
-	Send(*GameProposals) error
-	grpc.ServerStream
-}
-
-type chessApplicationGameRequestServer struct {
-	grpc.ServerStream
-}
-
-func (x *chessApplicationGameRequestServer) Send(m *GameProposals) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _ChessApplication_GameConfirmation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GameRequestMessage)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ChessApplicationServer).GameConfirmation(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/ChessApplication/GameConfirmation",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChessApplicationServer).GameConfirmation(ctx, req.(*GameRequestMessage))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _ChessApplication_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "ChessApplication",
 	HandlerType: (*ChessApplicationServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GameConfirmation",
-			Handler:    _ChessApplication_GameConfirmation_Handler,
-		},
-	},
+	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GameStream",
-			Handler:       _ChessApplication_GameStream_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "GameAction",
-			Handler:       _ChessApplication_GameAction_Handler,
+			StreamName:    "UCI",
+			Handler:       _ChessApplication_UCI_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
-		},
-		{
-			StreamName:    "MainChatRoom",
-			Handler:       _ChessApplication_MainChatRoom_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "GameRequest",
-			Handler:       _ChessApplication_GameRequest_Handler,
-			ServerStreams: true,
 		},
 	},
 	Metadata: "service/chess.proto",

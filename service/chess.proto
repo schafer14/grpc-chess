@@ -32,7 +32,7 @@ message UciRequest {
         string default = 3;
         int32 min = 4;
         int32 max = 5;
-        string var = 6;
+        repeated string var = 6;
     }
 
     message Id {

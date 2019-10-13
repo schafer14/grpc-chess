@@ -43,5 +43,5 @@
   
 ## First Step
 
-- Facilitate engine vs engine game:w
+- Facilitate engine vs engine game
 - 

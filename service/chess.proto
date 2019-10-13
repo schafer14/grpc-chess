@@ -1,7 +1,7 @@
 syntax="proto3";
 
 service ChessApplication {
-    // Lates!
+    // Later!
     // rpc GameStream(GameRequestMessage) returns (stream ServerGameMessage) {}
     // rpc GameAction(stream ClientGameMessage) returns (stream GameMessageResponse) {}
     // rpc MainChatRoom(RoomRequest) returns (stream RoomMessage) {}
